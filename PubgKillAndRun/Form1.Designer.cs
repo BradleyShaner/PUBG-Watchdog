@@ -75,6 +75,8 @@
             this.ClientSize = new System.Drawing.Size(284, 111);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.button1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "Form1";
             this.Text = "Fuck BlueHole";
             this.Load += new System.EventHandler(this.Form1_Load);

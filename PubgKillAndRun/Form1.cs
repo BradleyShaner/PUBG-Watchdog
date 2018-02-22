@@ -86,7 +86,7 @@ namespace PubgKillAndRun
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            this.MaximizeBox = false;
         }
 
         private void timer1_Tick(object sender, EventArgs e)
