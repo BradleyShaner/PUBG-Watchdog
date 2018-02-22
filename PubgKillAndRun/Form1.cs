@@ -30,6 +30,7 @@ namespace PubgKillAndRun
             t.Tick += delegate
             {
                 button1.Enabled = true;
+                t.Stop();
             };
 
             t.Start();
@@ -127,7 +128,7 @@ namespace PubgKillAndRun
                     notResponding = 0;
                 } else
                 {
-                    pubgStatus.Text = "PUBG: Not Responding";
+                    pubgStatus.Text = "PUBG: Not Responding; restarting..";
                     notResponding++;
 
                     if (notResponding >= 10)
