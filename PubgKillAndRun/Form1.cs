@@ -1,21 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
-using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace PubgKillAndRun
 {
     public partial class Form1 : Form
     {
-
-        int notResponding = 0;
+        private int notResponding = 0;
+        private int respondingDelay = 10;
 
         public Form1()
         {
@@ -45,17 +38,15 @@ namespace PubgKillAndRun
 
             if (!IsProcessRunning("TslGame.exe"))
             {
-                LaunchProcess("steam://run/578080", "");
-            } else
+                if (LaunchProcess("steam://run/578080", "") <= 0)
+                {
+                    MessageBox.Show("Unable to launch PUBG through Steam. You sure you have Steam installed properly?");
+                }
+            }
+            else
             {
                 MessageBox.Show("PUBG is still running :( try again.", "Pubg Watchdog");
             }
-            
-        }
-
-        private void @delegate(object sender, EventArgs e)
-        {
-            throw new NotImplementedException();
         }
 
         public static int LaunchProcess(string exe, string args)
@@ -63,7 +54,6 @@ namespace PubgKillAndRun
             Process p = System.Diagnostics.Process.Start(exe, args);
 
             return p.Id;
-
         }
 
         public static bool IsProcessRunning(string process)
@@ -72,7 +62,7 @@ namespace PubgKillAndRun
 
             if (proc.Length == 0)
                 return false;
-            
+
             return true;
         }
 
@@ -108,7 +98,7 @@ namespace PubgKillAndRun
             {
                 return false;
             }
-            
+
             return !cantKillProcess;
         }
 
@@ -121,24 +111,24 @@ namespace PubgKillAndRun
         {
             if (IsProcessRunning("TslGame.exe"))
             {
-
                 if (IsProcessResponding("TslGame.exe"))
                 {
                     pubgStatus.Text = "PUBG: Running";
                     notResponding = 0;
-                } else
+                }
+                else
                 {
-                    pubgStatus.Text = "PUBG: Not Responding.. " + notResponding + "/10";
+                    pubgStatus.Text = "PUBG: Not Responding.. " + notResponding + "/" + respondingDelay;
                     notResponding++;
 
-                    if (notResponding >= 10)
+                    if (notResponding >= respondingDelay)
                     {
                         button1.PerformClick();
                         notResponding = 0;
                     }
                 }
-
-            } else
+            }
+            else
             {
                 pubgStatus.Text = "PUBG: Not Running";
             }
