@@ -9,6 +9,8 @@ namespace PubgKillAndRun
     {
         private int notResponding = 0;
         private int respondingDelay = 10;
+        private string pubgExecutable = "TslGame.exe";
+        private string steamLaunchUrl = "steam://run/578080";
 
         public Form1()
         {
@@ -18,7 +20,7 @@ namespace PubgKillAndRun
         private void button1_Click(object sender, EventArgs e)
         {
             Timer t = new Timer();
-            t.Interval = 7000;
+            t.Interval = 10000;
 
             t.Tick += delegate
             {
@@ -29,23 +31,27 @@ namespace PubgKillAndRun
             t.Start();
 
             button1.Enabled = false;
-            if (IsProcessRunning("TslGame.exe"))
+            if (IsProcessRunning(pubgExecutable))
             {
-                KillProcess("TslGame.exe");
+                if (KillProcess(pubgExecutable))
+                {
+                    MessageBox.Show("Unable to kill PUBG. Try running this program as Admin.", "PUBG Watchdog");
+                    return;
+                }
             }
 
             System.Threading.Thread.Sleep(1000);
 
-            if (!IsProcessRunning("TslGame.exe"))
+            if (!IsProcessRunning(pubgExecutable))
             {
-                if (LaunchProcess("steam://run/578080", "") <= 0)
+                if (LaunchProcess(steamLaunchUrl, "") <= 0)
                 {
-                    MessageBox.Show("Unable to launch PUBG through Steam. You sure you have Steam installed properly?");
+                    MessageBox.Show("Unable to launch PUBG through Steam. You sure you have Steam installed properly?", "PUBG Watchdog");
                 }
             }
             else
             {
-                MessageBox.Show("PUBG is still running :( try again.", "Pubg Watchdog");
+                MessageBox.Show("PUBG is still running :( try again.", "PUBG Watchdog");
             }
         }
 
@@ -109,9 +115,9 @@ namespace PubgKillAndRun
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            if (IsProcessRunning("TslGame.exe"))
+            if (IsProcessRunning(pubgExecutable))
             {
-                if (IsProcessResponding("TslGame.exe"))
+                if (IsProcessResponding(pubgExecutable))
                 {
                     pubgStatus.Text = "PUBG: Running";
                     notResponding = 0;
@@ -136,12 +142,12 @@ namespace PubgKillAndRun
 
         private void killPUBGToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            KillProcess("TslGame.exe");
+            KillProcess(pubgExecutable);
         }
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Simple kill-and-restart PUBG in C#. MIT license." + Environment.NewLine + "<3 LostSoulfly", "Pubg Watchdog");
+            MessageBox.Show("Simple kill-and-restart PUBG in C#. MIT license." + Environment.NewLine + "<3 LostSoulfly", "PUBG Watchdog");
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
