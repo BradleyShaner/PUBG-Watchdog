@@ -14,6 +14,9 @@ namespace PubgKillAndRun
 {
     public partial class Form1 : Form
     {
+
+        int notResponding = 0;
+
         public Form1()
         {
             InitializeComponent();
@@ -21,6 +24,16 @@ namespace PubgKillAndRun
 
         private void button1_Click(object sender, EventArgs e)
         {
+            Timer t = new Timer();
+            t.Interval = 7000;
+
+            t.Tick += delegate
+            {
+                button1.Enabled = true;
+            };
+
+            t.Start();
+
             button1.Enabled = false;
             if (IsProcessRunning("TslGame.exe"))
             {
@@ -36,8 +49,12 @@ namespace PubgKillAndRun
             {
                 MessageBox.Show("PUBG is still running :( try again.");
             }
-            button1.Enabled = true;
             
+        }
+
+        private void @delegate(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         public static int LaunchProcess(string exe, string args)
@@ -55,6 +72,16 @@ namespace PubgKillAndRun
             if (proc.Length == 0)
                 return false;
             
+            return true;
+        }
+
+        public static bool IsProcessRespondingg(string process)
+        {
+            Process[] proc = Process.GetProcessesByName(Path.GetFileNameWithoutExtension(process));
+
+            if (!proc[0].Responding)
+                return false;
+
             return true;
         }
 
@@ -93,7 +120,23 @@ namespace PubgKillAndRun
         {
             if (IsProcessRunning("TslGame.exe"))
             {
-                pubgStatus.Text = "PUBG: Running";
+
+                if (IsProcessRespondingg("TslGame.exe"))
+                {
+                    pubgStatus.Text = "PUBG: Running";
+                    notResponding = 0;
+                } else
+                {
+                    pubgStatus.Text = "PUBG: Not Responding";
+                    notResponding++;
+
+                    if (notResponding >= 10)
+                    {
+                        button1.PerformClick();
+                        notResponding = 0;
+                    }
+                }
+
             } else
             {
                 pubgStatus.Text = "PUBG: Not Running";
