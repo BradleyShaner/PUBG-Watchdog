@@ -48,7 +48,7 @@ namespace PubgKillAndRun
                 LaunchProcess("steam://run/578080", "");
             } else
             {
-                MessageBox.Show("PUBG is still running :( try again.");
+                MessageBox.Show("PUBG is still running :( try again.", "Pubg Watchdog");
             }
             
         }
@@ -76,7 +76,7 @@ namespace PubgKillAndRun
             return true;
         }
 
-        public static bool IsProcessRespondingg(string process)
+        public static bool IsProcessResponding(string process)
         {
             Process[] proc = Process.GetProcessesByName(Path.GetFileNameWithoutExtension(process));
 
@@ -122,13 +122,13 @@ namespace PubgKillAndRun
             if (IsProcessRunning("TslGame.exe"))
             {
 
-                if (IsProcessRespondingg("TslGame.exe"))
+                if (IsProcessResponding("TslGame.exe"))
                 {
                     pubgStatus.Text = "PUBG: Running";
                     notResponding = 0;
                 } else
                 {
-                    pubgStatus.Text = "PUBG: Not Responding; restarting..";
+                    pubgStatus.Text = "PUBG: Not Responding.. " + notResponding + "/10";
                     notResponding++;
 
                     if (notResponding >= 10)
@@ -142,6 +142,21 @@ namespace PubgKillAndRun
             {
                 pubgStatus.Text = "PUBG: Not Running";
             }
+        }
+
+        private void killPUBGToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            KillProcess("TslGame.exe");
+        }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Simple kill-and-restart PUBG in C#. MIT license." + Environment.NewLine + "<3 LostSoulfly", "Pubg Watchdog");
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            System.Environment.Exit(0);
         }
     }
 }
