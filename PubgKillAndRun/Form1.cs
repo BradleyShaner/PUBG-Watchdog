@@ -8,7 +8,7 @@ namespace PubgKillAndRun
     public partial class Form1 : Form
     {
         private int notResponding = 0;
-        private int respondingDelay = 10;
+        private int respondingDelay = 15;
         private string pubgExecutable = "TslGame.exe";
         private string steamLaunchUrl = "steam://run/578080";
 
@@ -20,7 +20,7 @@ namespace PubgKillAndRun
         private void button1_Click(object sender, EventArgs e)
         {
             Timer t = new Timer();
-            t.Interval = 10000;
+            t.Interval = 20000;
 
             t.Tick += delegate
             {
@@ -33,7 +33,7 @@ namespace PubgKillAndRun
             button1.Enabled = false;
             if (IsProcessRunning(pubgExecutable))
             {
-                if (KillProcess(pubgExecutable))
+                if (!KillProcess(pubgExecutable))
                 {
                     MessageBox.Show("Unable to kill PUBG. Try running this program as Admin.", "PUBG Watchdog");
                     return;
@@ -117,6 +117,8 @@ namespace PubgKillAndRun
         {
             if (IsProcessRunning(pubgExecutable))
             {
+                button1.Text = "Kill and restart PUBG";
+
                 if (IsProcessResponding(pubgExecutable))
                 {
                     pubgStatus.Text = "PUBG: Running";
@@ -136,6 +138,7 @@ namespace PubgKillAndRun
             }
             else
             {
+                button1.Text = "Launch PUBG";
                 pubgStatus.Text = "PUBG: Not Running";
             }
         }
