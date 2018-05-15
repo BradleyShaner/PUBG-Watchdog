@@ -11,6 +11,8 @@ namespace PubgKillAndRun
         private int respondingDelay = 15;
         private string pubgExecutable = "TslGame.exe";
         private string steamLaunchUrl = "steam://run/578080";
+        private string steamLaunchUrlExperimental = "steam://run/813000";
+        private string steamLaunchUrlTest = "steam://run/622590";
 
         public Form1()
         {
@@ -44,7 +46,7 @@ namespace PubgKillAndRun
 
             if (!IsProcessRunning(pubgExecutable))
             {
-                if (LaunchProcess(steamLaunchUrl, "") <= 0)
+                if (LaunchProcess() <= 0)
                 {
                     MessageBox.Show("Unable to launch PUBG through Steam. You sure you have Steam installed properly?", "PUBG Watchdog");
                 }
@@ -55,14 +57,35 @@ namespace PubgKillAndRun
             }
         }
 
-        public static int LaunchProcess(string exe, string args)
+        public int LaunchProcess()
         {
+
+            string exe, args = "";
+            
+            switch (comboPubgClient.SelectedIndex)
+            {
+                case 0:
+                    exe = steamLaunchUrl;
+                    break;
+
+                case 1:
+                    exe =  steamLaunchUrlExperimental;
+                    break;
+
+                case 2:
+                    exe = steamLaunchUrlTest;
+                    break;
+
+                default:
+                    return -1;
+            }
+
             Process p = System.Diagnostics.Process.Start(exe, args);
 
             return p.Id;
         }
 
-        public static bool IsProcessRunning(string process)
+        public bool IsProcessRunning(string process)
         {
             Process[] proc = Process.GetProcessesByName(Path.GetFileNameWithoutExtension(process));
 
@@ -72,7 +95,7 @@ namespace PubgKillAndRun
             return true;
         }
 
-        public static bool IsProcessResponding(string process)
+        public bool IsProcessResponding(string process)
         {
             Process[] proc = Process.GetProcessesByName(Path.GetFileNameWithoutExtension(process));
 
@@ -82,7 +105,7 @@ namespace PubgKillAndRun
             return true;
         }
 
-        public static bool KillProcess(string proc)
+        public bool KillProcess(string proc)
         {
             bool cantKillProcess = false;
 
@@ -110,6 +133,7 @@ namespace PubgKillAndRun
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            comboPubgClient.SelectedIndex = 0;
             this.MaximizeBox = false;
         }
 
@@ -157,5 +181,6 @@ namespace PubgKillAndRun
         {
             System.Environment.Exit(0);
         }
+        
     }
 }

@@ -39,13 +39,14 @@
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.comboPubgClient = new System.Windows.Forms.ComboBox();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(12, 27);
+            this.button1.Location = new System.Drawing.Point(12, 54);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(260, 63);
             this.button1.TabIndex = 0;
@@ -57,7 +58,7 @@
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.pubgStatus});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 97);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 122);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(284, 22);
             this.statusStrip1.SizingGrip = false;
@@ -100,34 +101,48 @@
             // killPUBGToolStripMenuItem
             // 
             this.killPUBGToolStripMenuItem.Name = "killPUBGToolStripMenuItem";
-            this.killPUBGToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.killPUBGToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
             this.killPUBGToolStripMenuItem.Text = "Kill PUBG";
             this.killPUBGToolStripMenuItem.Click += new System.EventHandler(this.killPUBGToolStripMenuItem_Click);
             // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(149, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(120, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+            // 
+            // comboPubgClient
+            // 
+            this.comboPubgClient.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboPubgClient.FormattingEnabled = true;
+            this.comboPubgClient.Items.AddRange(new object[] {
+            "PUBG Normal Server",
+            "PUBG Experimental Server",
+            "PUBG Test Server"});
+            this.comboPubgClient.Location = new System.Drawing.Point(13, 27);
+            this.comboPubgClient.Name = "comboPubgClient";
+            this.comboPubgClient.Size = new System.Drawing.Size(259, 21);
+            this.comboPubgClient.TabIndex = 3;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 119);
+            this.ClientSize = new System.Drawing.Size(284, 144);
+            this.Controls.Add(this.comboPubgClient);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.button1);
@@ -158,6 +173,7 @@
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
+        private System.Windows.Forms.ComboBox comboPubgClient;
     }
 }
 
