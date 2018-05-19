@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2036
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PUBG-Watchdog", "PubgKillAndRun\PUBG-Watchdog.csproj", "{CEEB7E8B-DACC-4609-88D6-1BEB588DBA12}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PUBG-Watchdog", "PUBG-Watchdog\PUBG-Watchdog.csproj", "{CEEB7E8B-DACC-4609-88D6-1BEB588DBA12}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
